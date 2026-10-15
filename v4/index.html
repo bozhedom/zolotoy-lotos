@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ru" data-variant="v4">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Золотой Лотос — товары для здоровья и красоты из Азии</title>
+<meta name="description" content="Товары для здоровья и красоты из Таиланда, Китая и Южной Кореи. Оплата онлайн, самовывоз в Южно-Сахалинске: пр. Мира, 229.">
+<link rel="icon" href="../assets/img/logo-emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/shop.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="back-hub" href="../">← Все варианты</a>
+
+<header class="hdr" data-header>
+  <button class="hdr__burger" data-menu-toggle aria-expanded="false" aria-controls="menu" aria-label="Меню"><i></i><i></i><i></i></button>
+  <a class="hdr__logo" href="#top"><span class="hdr__medal"><img src="../assets/img/logo-emblem.png" alt=""></span><span>ЗОЛОТОЙ ЛОТОС</span></a>
+  <nav class="hdr__nav"><a href="#catalog">Каталог</a><a href="#calc">Калькулятор</a><a href="#pickup">Самовывоз</a></nav>
+  <button class="hdr__cart" data-cart-open aria-label="Корзина">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+    <b data-cart-count class="is-empty">0</b>
+  </button>
+  <!-- Выпадающее меню слева — пункты заказчица заполнит сама -->
+  <nav class="menu" id="menu" data-menu aria-label="Главное меню">
+    <p class="menu__t">Меню</p>
+    <a href="#catalog">Каталог <span>→</span></a>
+    <a href="#catalog" data-filter-country="th">Таиланд <span>→</span></a>
+    <a href="#catalog" data-filter-country="cn">Китай <span>→</span></a>
+    <a href="#catalog" data-filter-country="kr">Корея <span>→</span></a>
+    <a href="#calc">Оплата и доставка <span>→</span></a>
+    <a href="#pickup">Пункт выдачи <span>→</span></a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="slides" aria-hidden="true">
+      <div class="slide is-on"><img src="../assets/img/bagan-gold.jpg" alt=""></div>
+      <div class="slide"><img src="../assets/img/phiphi-boat.jpg" alt=""></div>
+      <div class="slide"><img src="../assets/img/wat-arun-sunset.jpg" alt=""></div>
+      <div class="slide"><img src="../assets/img/rice-terraces.jpg" alt=""></div>
+    </div>
+    <div class="hero__grad" aria-hidden="true"></div>
+    <div class="hero__sun" aria-hidden="true"></div>
+    <div class="hero__content">
+      <p class="pill" data-reveal="fade"><i></i>Таиланд · Китай · Южная Корея</p>
+      <h1 class="hero__title"><span data-split="chars" data-onload data-delay=".2">Золотой</span><span data-split="chars" data-onload data-delay=".45">Лотос</span></h1>
+      <p class="hero__lead" data-reveal="up" data-delay=".8">Товары для здоровья и красоты из Азии. Соберите корзину — цена посчитается сама. Оплата онлайн, самовывоз в Южно-Сахалинске.</p>
+      <div class="hero__cta" data-reveal="up" data-delay=".95">
+        <a class="btn btn--sun" href="#catalog" data-magnetic>Перейти в каталог</a>
+        <button class="btn btn--glass" data-bot-open>Подобрать с помощником</button>
+      </div>
+    </div>
+    <aside class="hit" data-reveal="right" data-delay="1.1">
+      <p class="hit__t">🔥 Хит недели</p>
+      <div class="hit__body">
+        <div class="hit__img" data-hit-art></div>
+        <div><b>Сыворотка с центеллой</b><small>Корея · успокаивает кожу</small><span class="hit__price">1 290 ₽</span></div>
+      </div>
+      <button class="btn btn--sun btn--sm" data-add="p10">В корзину +</button>
+    </aside>
+    <div class="dots" role="tablist" aria-label="Слайды"><button class="is-on" aria-label="Слайд 1"><i></i></button><button aria-label="Слайд 2"><i></i></button><button aria-label="Слайд 3"><i></i></button><button aria-label="Слайд 4"><i></i></button></div>
+  </section>
+
+  <section class="stats">
+    <div class="wrap stats__bar" data-stagger=".1">
+      <div><b data-count-to="3">3</b><span>страны: Таиланд,<br>Китай и Корея</span></div>
+      <div><b>2</b><span>способа оплаты:<br>карта и СБП</span></div>
+      <div><b>0 ₽</b><span>самовывоз<br>на пр. Мира, 229</span></div>
+      <div><b>1 мин</b><span>чтобы оформить<br>и оплатить заказ</span></div>
+    </div>
+  </section>
+
+  <section class="bento-sec">
+    <div class="wrap">
+      <h2 class="h2" data-split="words">Выберите <span class="grad">страну</span></h2>
+      <div class="bento">
+        <a class="tile tile--th" href="#catalog" data-filter-country="th" data-reveal="scale"><img src="../assets/img/phiphi-boat.jpg" alt="Лодка у острова Пхи-Пхи, Таиланд" loading="lazy"><span class="tile__lbl"><b>Таиланд</b><small>бальзамы · масла · ингаляторы</small></span><i class="tile__arr">↗</i></a>
+        <a class="tile tile--cn" href="#catalog" data-filter-country="cn" data-reveal="scale" data-delay=".1"><img src="../assets/img/guilin-pagodas-night.jpg" alt="Пагоды Солнца и Луны в Гуйлине ночью" loading="lazy"><span class="tile__lbl"><b>Китай</b><small>чай · пластыри · кремы</small></span><i class="tile__arr">↗</i></a>
+        <a class="tile tile--kr" href="#catalog" data-filter-country="kr" data-reveal="scale" data-delay=".2"><img src="../assets/img/korea-pavilion.jpg" alt="Павильон Кёнхверу, Сеул" loading="lazy"><span class="tile__lbl"><b>Корея</b><small>маски · сыворотки · SPF</small></span><i class="tile__arr">↗</i></a>
+        <button class="tile tile--bot" data-bot-open data-reveal="scale" data-delay=".3"><span class="tile__emoji">🪷</span><b>Не знаете, что выбрать?</b><small>Помощник подберёт средство за 3 клика</small><i class="tile__arr">↗</i></button>
+        <div class="tile tile--pay" data-reveal="scale" data-delay=".4"><b>Оплата онлайн</b><small>Картой или по СБП — прямо на сайте</small><div class="tile__cards"><span>Карта</span><span>СБП</span><span>QR</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="catalog" id="catalog">
+    <div class="wrap">
+      <div class="cat-top">
+        <h2 class="h2" data-split="words">Каталог</h2>
+        <div class="glow-tabs" role="group" aria-label="Страна">
+          <button class="is-active" data-filter-country="all">Все</button><button data-filter-country="th">Таиланд</button><button data-filter-country="cn">Китай</button><button data-filter-country="kr">Корея</button>
+        </div>
+      </div>
+      <div class="glow-chips" role="group" aria-label="Задача">
+        <button class="is-active" data-filter-need="all">Всё</button><button data-filter-need="face">Для лица</button><button data-filter-need="body">Тело и суставы</button><button data-filter-need="immune">Иммунитет</button><button data-filter-need="hair">Для волос</button>
+      </div>
+      <div class="grid" data-products></div>
+    </div>
+  </section>
+
+  <section class="calc-sec" id="calc">
+    <div class="wrap">
+      <div class="calc" data-reveal="up">
+        <div class="calc__l">
+          <p class="pill"><i></i>Калькулятор заказа</p>
+          <h2 class="h2">Итог — <span data-total>0 ₽</span></h2>
+          <p class="calc__goal" data-calc-goal>Добавьте товары — и здесь появится сумма</p>
+          <div class="calc__bar"><i data-calc-bar></i><span style="left:60%">3 000 ₽<br><small>курьер бесплатно</small></span><span style="left:100%">5 000 ₽<br><small>скидка 5%</small></span></div>
+        </div>
+        <div class="calc__r">
+          <ol>
+            <li><b>1</b>Соберите корзину</li>
+            <li><b>2</b>Оплатите картой или по СБП</li>
+            <li><b>3</b>Заберите на пр. Мира, 229 или ждите курьера</li>
+          </ol>
+          <button class="btn btn--sun" data-cart-open>Открыть корзину · <span data-count>0</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pickup" id="pickup">
+    <div class="wrap pickup__grid">
+      <div class="pickup__map" data-map data-reveal="fade"></div>
+      <div class="pickup__card" data-reveal="right">
+        <p class="pill"><i></i>Самовывоз · бесплатно</p>
+        <h2 class="h2">Пункт выдачи</h2>
+        <p class="pickup__addr"><span data-shop="city"></span>,<br><b data-shop="pickup"></b></p>
+        <p class="pickup__note">📍 <span data-shop="note"></span></p>
+        <a class="btn btn--sun" href="https://yandex.ru/maps/?text=%D0%AE%D0%B6%D0%BD%D0%BE-%D0%A1%D0%B0%D1%85%D0%B0%D0%BB%D0%B8%D0%BD%D1%81%D0%BA%2C%20%D0%BF%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%20%D0%9C%D0%B8%D1%80%D0%B0%2C%20229" target="_blank" rel="noopener">Построить маршрут</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap ftr__in">
+    <a class="hdr__logo" href="#top"><span class="hdr__medal"><img src="../assets/img/logo-emblem.png" alt=""></span><span>ЗОЛОТОЙ ЛОТОС</span></a>
+    <span data-shop="phone"></span>
+    <span><span data-shop="city"></span>, <span data-shop="pickup"></span></span>
+    <span>© <span data-year></span> · Фото: Wikimedia Commons (CC)</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="../shared/products.js"></script>
+<script src="../shared/shop.js"></script>
+<script src="../shared/fx.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
