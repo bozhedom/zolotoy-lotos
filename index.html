@@ -50,14 +50,6 @@
   .open:hover { background: var(--gold); gap: 16px; }
   @media (max-width: 860px) { .v { grid-template-columns: 1fr; gap: 24px; } .v:nth-child(even) .shots { order: 0; } }
 
-  .info { padding: 70px 0; border-top: 1px solid var(--line); }
-  .info__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-  .box { padding: 30px; border-radius: 24px; background: var(--card); border: 1px solid var(--line); }
-  .box h3 { margin: 0 0 14px; font: 500 30px 'Cormorant Garamond', serif; }
-  .box ul { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
-  .box li::marker { color: var(--gold); }
-  .box--wide { grid-column: 1 / -1; }
-  @media (max-width: 760px) { .info__grid { grid-template-columns: 1fr; } }
   footer { padding: 30px 0 50px; text-align: center; color: var(--muted); font-size: 13px; }
 </style>
 </head>
@@ -146,43 +138,6 @@
     </div>
   </article>
 </main>
-
-<section class="info">
-  <div class="wrap info__grid">
-    <div class="box">
-      <h3>Есть в каждом варианте</h3>
-      <ul>
-        <li>Меню в левом верхнем углу — выпадает, пункты заполните сами</li>
-        <li>Каталог с фильтрами по стране и по задаче (лицо, суставы, иммунитет, волосы)</li>
-        <li>Корзина-калькулятор: сумма, скидка, промокод, доставка — считается сразу</li>
-        <li>Оформление и онлайн-оплата картой или по СБП (здесь в демо-режиме)</li>
-        <li>Бот-помощник: где забрать, как оплатить, подбор товара</li>
-        <li>Пункт выдачи с картой: пр. Мира, 229, ТЦ «Янтарь», место 2А</li>
-        <li>Версия для телефона и плашка «Оформить» внизу экрана</li>
-      </ul>
-    </div>
-    <div class="box">
-      <h3>Что взяли у похожих магазинов</h3>
-      <ul>
-        <li>Товар находится за 1–2 клика: фильтры по стране и по задаче прямо над каталогом</li>
-        <li>Цена видна сразу, без звонков: калькулятор и шкала «до бесплатной доставки / до скидки»</li>
-        <li>Кнопка «В корзину» сразу на карточке, с анимацией полёта в корзину</li>
-        <li>Адрес и способы оплаты видны на первом экране — меньше вопросов</li>
-        <li>Помощник для тех, кто не знает, что выбрать</li>
-      </ul>
-    </div>
-    <div class="box box--wide">
-      <h3>Важно знать</h3>
-      <ul>
-        <li>Товары, цены и описания — примеры. Карточки вы заполните сами; картинки товаров временные.</li>
-        <li>Условия доставки и скидок (курьер 300 ₽, бесплатно от 3 000 ₽, скидка 5% от 5 000 ₽, промокод LOTOS10) — для примера, поменяем на ваши.</li>
-        <li>Оплата в демо-режиме, деньги не списываются. На готовом сайте подключим ЮKassa, Т-Банк или другую систему через Тильду.</li>
-        <li>Телефон и ссылка на Telegram — заглушки. Пришлите настоящие.</li>
-        <li>Выбранный вариант перенесём в Тильду и подключим к вашему домену на reg.ru.</li>
-      </ul>
-    </div>
-  </div>
-</section>
 
 <footer>Фото пейзажей: Wikimedia Commons (лицензии CC, авторы указаны в assets/img/credits.json) · © Золотой Лотос</footer>
 </body>
