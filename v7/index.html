@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ru" data-variant="v7">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Золотой Лотос — товары для здоровья и красоты из Азии</title>
+<meta name="description" content="Товары для здоровья и красоты из Таиланда, Китая и Южной Кореи. Оплата онлайн, самовывоз в Южно-Сахалинске: пр. Мира, 229.">
+<link rel="icon" href="../assets/img/logo-emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,800;0,900;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/shop.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="back-hub" href="../">← Все варианты</a>
+
+<header class="hdr" data-header>
+  <button class="hdr__menu" data-menu-toggle aria-expanded="false" aria-controls="menu"><i></i>Меню</button>
+  <a class="hdr__logo" href="#top"><img src="../assets/img/logo-emblem.png" alt="">Золотой Лотос</a>
+  <button class="hdr__cart" data-cart-open>Корзина (<span data-count>0</span>)</button>
+  <!-- Выпадающее меню слева — пункты заказчица заполнит сама -->
+  <nav class="menu" id="menu" data-menu aria-label="Главное меню">
+    <a href="#catalog"><span>01</span>Каталог</a>
+    <a href="#countries"><span>02</span>Страны</a>
+    <a href="#calc"><span>03</span>Оплата и доставка</a>
+    <a href="#pickup"><span>04</span>Пункт выдачи</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero__meta wrap"><span>Здоровье и красота</span><span>Таиланд / Китай / Корея</span><span data-shop="city"></span></div>
+    <h1 class="hero__title"><span data-split="chars" data-onload>Золотой</span><span class="hero__accent" data-split="chars" data-onload data-delay=".2">Лотос</span></h1>
+    <div class="hero__band" data-reveal="clip-x" data-dur="1.4" data-delay=".4"><img src="../assets/img/wat-arun-sunset.jpg" alt="Ват Арун на закате, Бангкок"></div>
+    <div class="hero__row wrap">
+      <p data-reveal="up" data-delay=".6">Бальзамы, чаи, маски и сыворотки из Азии. Цена считается сама, оплата на сайте, самовывоз на пр. Мира, 229.</p>
+      <a class="btn" href="#catalog" data-reveal="up" data-delay=".7">Смотреть каталог <span>↘</span></a>
+    </div>
+  </section>
+
+  <section class="countries" id="countries">
+    <div class="wrap">
+      <p class="label">Страны</p>
+      <div class="rows">
+        <a class="row" href="#catalog" data-filter-country="th" data-img="../assets/img/doi-suthep.jpg"><span class="row__n">01</span><b>Таиланд</b><small>бальзамы · масла · ингаляторы</small><i>→</i></a>
+        <a class="row" href="#catalog" data-filter-country="cn" data-img="../assets/img/guilin-view.jpg"><span class="row__n">02</span><b>Китай</b><small>чай · пластыри · кремы</small><i>→</i></a>
+        <a class="row" href="#catalog" data-filter-country="kr" data-img="../assets/img/korea-pavilion.jpg"><span class="row__n">03</span><b>Корея</b><small>маски · сыворотки · SPF</small><i>→</i></a>
+      </div>
+    </div>
+    <div class="follow" aria-hidden="true"><img alt=""></div>
+  </section>
+
+  <section class="catalog" id="catalog">
+    <div class="wrap">
+      <div class="cat-head">
+        <h2 class="h2" data-split="words">Каталог</h2>
+        <div class="filters">
+          <div class="tabs" role="group" aria-label="Страна"><button class="is-active" data-filter-country="all">Все</button><button data-filter-country="th">Таиланд</button><button data-filter-country="cn">Китай</button><button data-filter-country="kr">Корея</button></div>
+          <div class="tabs tabs--sm" role="group" aria-label="Задача"><button class="is-active" data-filter-need="all">Любая задача</button><button data-filter-need="face">Лицо</button><button data-filter-need="body">Тело</button><button data-filter-need="immune">Иммунитет</button><button data-filter-need="hair">Волосы</button></div>
+        </div>
+      </div>
+      <div class="grid" data-products></div>
+    </div>
+  </section>
+
+  <section class="calc" id="calc">
+    <div class="wrap calc__in">
+      <p class="label">Ваш заказ</p>
+      <p class="calc__total" data-total>0 ₽</p>
+      <div class="calc__row">
+        <span>Самовывоз — 0 ₽</span><span>Курьер — 300 ₽, от 3 000 ₽ бесплатно</span><span>От 5 000 ₽ — скидка 5%</span><span>Карта или СБП</span>
+      </div>
+      <button class="btn" data-cart-open>Открыть корзину <span>→</span></button>
+    </div>
+  </section>
+
+  <section class="pickup" id="pickup">
+    <div class="wrap">
+      <p class="label">Пункт выдачи</p>
+      <p class="pickup__big" data-split="words">пр. Мира, 229</p>
+      <div class="pickup__grid">
+        <div data-reveal="up">
+          <p class="pickup__t">ТЦ «Янтарь», место 2А</p>
+          <p class="pickup__n"><span data-shop="note"></span>. <span data-shop="city"></span>. Самовывоз бесплатно.</p>
+          <a class="btn btn--line" href="https://yandex.ru/maps/?text=%D0%AE%D0%B6%D0%BD%D0%BE-%D0%A1%D0%B0%D1%85%D0%B0%D0%BB%D0%B8%D0%BD%D1%81%D0%BA%2C%20%D0%BF%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%20%D0%9C%D0%B8%D1%80%D0%B0%2C%20229" target="_blank" rel="noopener">Построить маршрут <span>↗</span></a>
+        </div>
+        <div class="pickup__map" data-map data-reveal="clip"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <p class="ftr__big">Золотой Лотос</p>
+    <div class="ftr__row"><span data-shop="phone"></span><span><span data-shop="city"></span>, <span data-shop="pickup"></span></span><span>© <span data-year></span> · Фото: Wikimedia Commons (CC)</span></div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="../shared/products.js"></script>
+<script src="../shared/shop.js"></script>
+<script src="../shared/fx.js"></script>
+<script>
+FX.init({ smooth: false });
+// Картинка следует за курсором над строками стран
+(function () {
+  const f = document.querySelector('.follow'), img = f.querySelector('img');
+  if (FX.coarse) return;
+  document.querySelectorAll('.row').forEach(r => {
+    r.addEventListener('mouseenter', () => { img.src = r.dataset.img; f.classList.add('is-on'); });
+    r.addEventListener('mouseleave', () => f.classList.remove('is-on'));
+  });
+  addEventListener('mousemove', e => { f.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`; });
+})();
+</script>
+</body>
+</html>

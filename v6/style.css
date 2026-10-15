@@ -1,0 +1,122 @@
+/* Вариант 6 — «Манго»: ярко-жёлтый, крупные буквы. Rubik Mono One + Rubik */
+:root {
+  --mango: #ffc83d; --cream: #fff6dc; --ink: #1d1a14; --pink: #ff5c8a; --leaf: #2f9e5b; --sky: #7cc6ff; --muted: #5d5547;
+  --zl-bg: var(--cream); --zl-surface: #fff; --zl-text: var(--ink); --zl-muted: var(--muted); --zl-line: rgba(29,26,20,.14);
+  --zl-accent: var(--ink); --zl-accent-ink: var(--mango); --zl-accent-2: #ffe9a8; --zl-radius: 22px;
+  --zl-display: 'Rubik', sans-serif; --zl-body: 'Rubik', system-ui, sans-serif; --zl-overlay: rgba(29,26,20,.45);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--mango); color: var(--ink); font: 17px/1.55 var(--zl-body); overflow-x: clip; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+.wrap { width: min(1240px, 100% - 32px); margin: 0 auto; }
+.h2 { margin: 0 0 30px; font: 400 clamp(36px, 6vw, 80px)/1 'Rubik Mono One', sans-serif; text-transform: uppercase; letter-spacing: -.02em; }
+.btn { display: inline-flex; align-items: center; min-height: 58px; padding: 0 30px; border-radius: 99px; border: 3px solid var(--ink); background: var(--pink); color: #fff; font: 700 17px var(--zl-body); text-decoration: none; cursor: pointer; box-shadow: 5px 5px 0 var(--ink); transition: transform .2s, box-shadow .2s; }
+.btn:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--ink); }
+.btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--ink); }
+.btn--dark { background: var(--ink); color: var(--mango); box-shadow: 5px 5px 0 var(--pink); }
+.btn--dark:hover { box-shadow: 7px 7px 0 var(--pink); }
+
+/* шапка */
+.hdr { position: fixed; z-index: 600; inset: 0 0 auto; height: 74px; padding: 0 clamp(16px, 3vw, 36px); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; transition: background .3s, box-shadow .3s; }
+.hdr.is-scrolled { background: var(--mango); box-shadow: 0 3px 0 var(--ink); }
+.hdr__burger, .hdr__cart { display: inline-flex; align-items: center; gap: 10px; min-height: 46px; padding: 0 18px; border-radius: 99px; border: 3px solid var(--ink); background: var(--cream); color: var(--ink); font: 700 15px var(--zl-body); cursor: pointer; }
+.hdr__burger { justify-self: start; }
+.hdr__burger span { display: grid; gap: 3px; }
+.hdr__burger i { display: block; width: 16px; height: 2.5px; border-radius: 2px; background: currentColor; transition: transform .3s, opacity .3s; }
+.zl-menu-open .hdr__burger i:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+.zl-menu-open .hdr__burger i:nth-child(2) { opacity: 0; }
+.zl-menu-open .hdr__burger i:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+.hdr__cart { justify-self: end; background: var(--ink); color: var(--mango); }
+.hdr__cart b { min-width: 24px; height: 24px; border-radius: 99px; display: grid; place-items: center; background: var(--pink); color: #fff; font-size: 12px; padding: 0 6px; }
+.hdr__cart b.is-empty { display: none; }
+.hdr__logo { display: flex; align-items: center; gap: 8px; text-decoration: none; font: 400 15px 'Rubik Mono One', sans-serif; text-transform: uppercase; }
+.hdr__logo img { width: 52px; }
+@media (max-width: 760px) { .hdr__logo span { display: none; } .hdr__burger { font-size: 0; gap: 0; padding: 0 13px; } }
+.menu { position: absolute; top: 72px; left: clamp(16px, 3vw, 36px); width: min(300px, calc(100% - 32px)); padding: 10px; border-radius: 22px; border: 3px solid var(--ink); background: var(--cream); box-shadow: 6px 6px 0 var(--ink); display: grid; transform-origin: top left; transform: scale(.6) rotate(-6deg); opacity: 0; visibility: hidden; transition: transform .4s cubic-bezier(.34,1.56,.64,1), opacity .25s, visibility .4s; }
+.zl-menu-open .menu { transform: none; opacity: 1; visibility: visible; }
+.menu a { padding: 12px 14px; border-radius: 14px; text-decoration: none; font-weight: 700; font-size: 18px; transition: background .2s, padding .2s; }
+.menu a:hover { background: var(--mango); padding-left: 20px; }
+
+/* hero */
+.hero { position: relative; padding: 120px 0 70px; overflow: hidden; }
+.hero__title { margin: 0; font: 400 clamp(54px, 13.5vw, 210px)/.92 'Rubik Mono One', sans-serif; text-transform: uppercase; letter-spacing: -.04em; }
+.hero__l1, .hero__l2 { display: block; }
+.hero__l2 { display: flex; align-items: center; gap: .12em; color: var(--cream); -webkit-text-stroke: 3px var(--ink); paint-order: stroke fill; }
+.hero__pic { flex: none; width: .9em; height: .9em; border-radius: 50%; overflow: hidden; border: 4px solid var(--ink); animation: wobble 6s ease-in-out infinite; }
+.hero__pic img { width: 100%; height: 100%; object-fit: cover; }
+@keyframes wobble { 50% { transform: rotate(12deg) scale(1.06); } }
+.hero__row { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; margin-top: 40px; }
+.hero__lead { max-width: 560px; margin: 0; font-size: clamp(17px, 1.6vw, 21px); font-weight: 500; }
+.sticker { position: absolute; right: clamp(12px, 6vw, 90px); top: clamp(240px, 22vw, 340px); width: clamp(110px, 13vw, 180px); animation: spin 14s linear infinite; }
+.sticker circle { fill: var(--pink); stroke: var(--ink); stroke-width: 3; }
+.sticker text { font: 700 17px var(--zl-body); fill: #fff; letter-spacing: .06em; text-transform: uppercase; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (max-width: 760px) { .sticker { top: auto; bottom: 20px; right: 16px; width: 96px; } .hero__l2 { -webkit-text-stroke-width: 2px; } }
+
+/* бегущая строка */
+.ticker { overflow: hidden; background: var(--ink); color: var(--mango); padding: 16px 0; transform: rotate(-1.5deg); margin: 10px -10px; }
+.ticker div { display: flex; gap: 28px; width: max-content; animation: tick 26s linear infinite; font: 400 24px 'Rubik Mono One', sans-serif; text-transform: uppercase; white-space: nowrap; }
+.ticker i { font-style: normal; color: var(--pink); }
+@keyframes tick { to { transform: translateX(-50%); } }
+
+/* страны */
+.countries { padding: 90px 0 60px; }
+.ctry { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.ctry__c { position: relative; padding: 14px 14px 22px; border-radius: 28px; border: 3px solid var(--ink); text-decoration: none; box-shadow: 6px 6px 0 var(--ink); transition: transform .25s, box-shadow .25s; }
+.ctry__c:hover { transform: translate(-3px, -3px) rotate(-1deg); box-shadow: 9px 9px 0 var(--ink); }
+.c1 { background: var(--pink); } .c2 { background: var(--leaf); color: #fff; } .c3 { background: var(--sky); }
+.ctry__c img { aspect-ratio: 4 / 3; width: 100%; object-fit: cover; border-radius: 18px; border: 3px solid var(--ink); margin-bottom: 14px; }
+.ctry__c b { display: block; font: 400 clamp(24px, 2.6vw, 34px) 'Rubik Mono One', sans-serif; text-transform: uppercase; }
+.ctry__c small { font-size: 15px; font-weight: 500; }
+@media (max-width: 860px) { .ctry { grid-template-columns: 1fr; } }
+
+/* каталог */
+.catalog { padding: 70px 0 90px; background: var(--cream); border-block: 3px solid var(--ink); margin-top: 40px; }
+.filters { display: grid; gap: 10px; margin-bottom: 30px; }
+.pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.pills button { min-height: 46px; padding: 0 20px; border-radius: 99px; border: 3px solid var(--ink); background: #fff; font: 700 15px var(--zl-body); color: var(--ink); cursor: pointer; transition: background .2s, transform .2s; }
+.pills button:hover { transform: translateY(-2px); }
+.pills button.is-active { background: var(--ink); color: var(--mango); }
+.pills--sm button { min-height: 40px; border-width: 2px; font-size: 14px; }
+.pills--sm button.is-active { background: var(--pink); color: #fff; border-color: var(--ink); }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+@media (max-width: 1080px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 760px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+@media (max-width: 420px) { .zl-card__body { padding: 12px; } .zl-card__desc { display: none; } .zl-card__foot { flex-direction: column; align-items: stretch; } .zl-add { justify-content: center; } .zl-step { justify-content: space-between; } }
+.zl-card { border: 3px solid var(--ink); box-shadow: 5px 5px 0 var(--ink); }
+.zl-card:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--ink); }
+.zl-card__media { border-bottom: 3px solid var(--ink); background: color-mix(in srgb, var(--c1) 35%, #fff); }
+.zl-card__title { font-weight: 800; font-size: 18px; }
+.zl-card__price { font-weight: 800; font-size: 22px; }
+.zl-card__badge { background: var(--pink); color: #fff; border: 2px solid var(--ink); }
+.zl-card__flag { border: 2px solid var(--ink); background: #fff; }
+
+/* калькулятор */
+.calc { padding: 90px 0; }
+.calc__in { display: grid; grid-template-columns: 1.2fr 1fr auto; gap: 30px; align-items: center; padding: clamp(24px, 4vw, 48px); border-radius: 36px; background: var(--cream); border: 3px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); }
+.calc .h2 { margin-bottom: 10px; font-size: clamp(26px, 3vw, 40px); }
+.calc__total { margin: 0; font: 400 clamp(48px, 6vw, 84px)/1 'Rubik Mono One', sans-serif; color: var(--pink); -webkit-text-stroke: 2px var(--ink); paint-order: stroke fill; }
+.calc__meta { margin: 8px 0 0; font-weight: 500; }
+.calc__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 15px; }
+.calc__list li { padding: 10px 14px; border-radius: 14px; background: #fff; border: 2px solid var(--ink); }
+@media (max-width: 960px) { .calc__in { grid-template-columns: 1fr; } }
+
+/* пункт выдачи */
+.pickup { padding: 30px 0 100px; }
+.pickup__in { display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; align-items: center; }
+.pickup__addr { font-size: clamp(20px, 2vw, 26px); font-weight: 700; margin: 0 0 6px; }
+.pickup__note { margin: 0 0 26px; font-weight: 500; color: var(--muted); }
+.pickup__map { height: 400px; border-radius: 30px; overflow: hidden; border: 3px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); background: var(--cream) url(../assets/img/logo-emblem.png) center / 120px no-repeat; }
+@media (max-width: 860px) { .pickup__in { grid-template-columns: 1fr; } .pickup__map { height: 320px; } }
+
+/* подвал */
+.ftr { background: var(--ink); color: var(--cream); padding: 40px 0; }
+.ftr__in { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 14px; }
+.ftr b { font: 400 18px 'Rubik Mono One', sans-serif; text-transform: uppercase; color: var(--mango); }
+.ftr small { opacity: .6; }
+@media (max-width: 760px) { .ftr { padding-bottom: 100px; } .ftr__in { flex-direction: column; align-items: flex-start; } }
+
+/* бот и корзина в тон */
+.zl-bot__fab { border: 3px solid var(--ink); background: var(--pink); color: #fff; }
