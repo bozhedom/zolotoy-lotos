@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ru" data-variant="v11">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Золотой Лотос — косметика и здоровье из Азии</title>
+<meta name="description" content="Косметика и товары для здоровья из Таиланда, Китая и Южной Кореи. Закажите на сайте и заберите в Южно-Сахалинске: пр. Мира, 229, рынок «Янтарь».">
+<link rel="icon" href="../assets/img/logo-emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../lite/shop.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="back-hub" href="../simple.html">← Все варианты</a>
+
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a class="logo" href="#top"><img src="../assets/img/logo-emblem.png" alt=""><span>Золотой Лотос<small>товары из Азии</small></span></a>
+    <nav class="hdr__nav" aria-label="Разделы">
+      <a href="#catalog">Каталог</a>
+      <a href="#how">Самовывоз</a>
+      <a href="#contacts">Связаться</a>
+    </nav>
+    <button class="cart-btn" data-cart-open aria-label="Корзина">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <i data-cart-count class="is-empty">0</i>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero__frame">
+        <img class="hero__bg" src="../assets/img/guilin-view.jpg" alt="Горы и река Ли в Гуйлине, Китай">
+        <div class="hero__c">
+          <h1 class="hero__title">Азиатский уход без поездки в&nbsp;Азию</h1>
+          <p class="hero__lead">Проверенная косметика и средства для здоровья из Таиланда, Китая и Кореи. Здесь, в Южно-Сахалинске.</p>
+          <a class="lt-btn" href="#catalog">Выбрать товары</a>
+        </div>
+      </div>
+      <ul class="facts">
+        <li><b>5 разделов</b> лицо, тело, волосы, здоровье, чай</li>
+        <li><b>3 страны</b> Таиланд, Китай, Корея</li>
+        <li><b>Самовывоз</b> пр. Мира, 229</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="catalog" id="catalog">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="h2">Каталог</h2>
+        <button class="sec-head__cart" data-cart-open>Корзина: <span data-cart-total>0 ₽</span></button>
+      </div>
+      <div data-catalog></div>
+    </div>
+  </section>
+
+  <section class="how" id="how">
+    <div class="wrap how__in" data-rise>
+      <div class="how__text">
+        <h2 class="h2">Как получить заказ</h2>
+        <ol class="steps">
+          <li>Соберите корзину и оставьте телефон.</li>
+          <li>Мы напишем, когда заказ будет готов.</li>
+          <li>Приезжайте, смотрите товар на месте и оплачиваете так, как договоритесь с продавцом.</li>
+        </ol>
+        <p class="soon">Онлайн-оплата и доставка — скоро.</p>
+      </div>
+      <div class="addr">
+        <img src="../assets/img/misty-pagoda.jpg" alt="Пагода в тумане над озером" loading="lazy">
+        <div class="addr__c">
+          <small>Пункт выдачи</small>
+          <p><span data-shop="city"></span>, <b data-shop="pickup"></b></p>
+          <p class="addr__note" data-shop="pickupNote"></p>
+          <a data-link="map" target="_blank" rel="noopener">Открыть на карте →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contacts" id="contacts">
+    <div class="wrap contacts__in" data-rise>
+      <div>
+        <h2 class="h2">Есть вопрос?</h2>
+        <p>Напишите — поможем выбрать и ответим про наличие.</p>
+      </div>
+      <div class="msg">
+        <a data-link="wa" target="_blank" rel="noopener">WhatsApp</a>
+        <a data-link="tg" target="_blank" rel="noopener">Telegram</a>
+        <a data-link="vk" target="_blank" rel="noopener">ВКонтакте</a>
+      </div>
+      <dl class="info">
+        <div><dt>Телефон</dt><dd data-shop="phone"></dd></div>
+        <div><dt>Часы</dt><dd data-shop="hours"></dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap ftr__in">
+    <span>© <span data-year></span> Золотой Лотос</span>
+    <small>Фото: Wikimedia Commons (CC)</small>
+  </div>
+</footer>
+
+<script src="../lite/products.js"></script>
+<script src="../lite/shop.js"></script>
+</body>
+</html>

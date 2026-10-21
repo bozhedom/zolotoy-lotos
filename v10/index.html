@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ru" data-variant="v10">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Золотой Лотос — косметика и здоровье из Азии</title>
+<meta name="description" content="Косметика и товары для здоровья из Таиланда, Китая и Южной Кореи. Закажите на сайте и заберите в Южно-Сахалинске: пр. Мира, 229, рынок «Янтарь».">
+<link rel="icon" href="../assets/img/logo-emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../lite/shop.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="back-hub" href="../simple.html">← Все варианты</a>
+
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <nav class="hdr__nav" aria-label="Разделы">
+      <a href="#catalog">Каталог</a>
+      <a href="#how">Как купить</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a class="logo" href="#top"><img src="../assets/img/logo-emblem.png" alt=""><span>Золотой Лотос</span></a>
+    <button class="cart-btn" data-cart-open aria-label="Корзина">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span data-cart-total>0 ₽</span><i data-cart-count class="is-empty">0</i>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero__in">
+      <div class="hero__text">
+        <p class="hero__from"><span>Таиланд</span><span>Китай</span><span>Южная Корея</span></p>
+        <h1 class="hero__title">Красота и&nbsp;здоровье из&nbsp;Азии</h1>
+        <p class="hero__lead">Корейские маски, тайские бальзамы, китайский чай — всё, что обычно везут из поездки. Закажите на сайте и заберите в Южно-Сахалинске.</p>
+        <div class="hero__cta">
+          <a class="lt-btn" href="#catalog">Смотреть каталог</a>
+          <a class="hero__link" href="#how">Как забрать заказ →</a>
+        </div>
+      </div>
+      <div class="hero__pics">
+        <figure class="arch arch--big"><img src="../assets/img/korea-pavilion-v.jpg" alt="Павильон Хянвонджон, Сеул"></figure>
+        <figure class="arch arch--small"><img src="../assets/img/orchid-pink.jpg" alt="Розовая орхидея"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="cats-quick" aria-label="Популярные категории">
+    <div class="wrap cats-quick__in">
+      <a href="#catalog" data-goto-cat="face">Уход за лицом</a>
+      <a href="#catalog" data-goto-cat="body">Тело и баня</a>
+      <a href="#catalog" data-goto-cat="hair">Волосы</a>
+      <a href="#catalog" data-goto-cat="health">Здоровье</a>
+      <a href="#catalog" data-goto-cat="tea">Чай и травы</a>
+    </div>
+  </section>
+
+  <section class="catalog" id="catalog">
+    <div class="wrap">
+      <h2 class="h2">Каталог</h2>
+      <p class="sub">Откройте товар — рядом будет подборка «С этим берут».</p>
+      <div data-catalog></div>
+    </div>
+  </section>
+
+  <section class="how" id="how">
+    <div class="wrap how__in" data-rise>
+      <div>
+        <h2 class="h2">Как купить</h2>
+        <p class="sub">Пока работаем с самовывозом. Оплата на месте, онлайн-оплата скоро появится.</p>
+      </div>
+      <ol class="steps">
+        <li><b>Выберите товары</b><span>Сложите в корзину и оставьте имя и телефон.</span></li>
+        <li><b>Получите сообщение</b><span>Мы соберём заказ и напишем, когда он готов.</span></li>
+        <li><b>Заберите на рынке «Янтарь»</b><span>Посмотрите товар и договоритесь об оплате: наличные или перевод.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="contacts" id="contacts">
+    <div class="wrap contacts__in" data-rise>
+      <div class="place">
+        <p class="place__k">Пункт выдачи</p>
+        <p class="place__addr"><span data-shop="city"></span>,<br><b data-shop="pickup"></b></p>
+        <p class="place__note" data-shop="pickupNote"></p>
+        <p class="place__note" data-shop="hours"></p>
+        <a class="lt-btn lt-btn--ghost" data-link="map" target="_blank" rel="noopener">Построить маршрут</a>
+      </div>
+      <div class="talk">
+        <h2 class="h2">Напишите нам</h2>
+        <p class="sub">Подскажем, что подойдёт вашей коже, и отложим товар.</p>
+        <div class="msg">
+          <a data-link="wa" target="_blank" rel="noopener"><b>WhatsApp</b><span>быстрее всего</span></a>
+          <a data-link="tg" target="_blank" rel="noopener"><b>Telegram</b><span>@zolotoy_lotos</span></a>
+          <a data-link="vk" target="_blank" rel="noopener"><b>ВКонтакте</b><span>новинки и акции</span></a>
+        </div>
+        <p class="phone">Телефон: <b data-shop="phone"></b></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap ftr__in">
+    <span class="logo logo--s"><img src="../assets/img/logo-emblem.png" alt="">Золотой Лотос</span>
+    <small>© <span data-year></span> · Фото: Wikimedia Commons (CC)</small>
+  </div>
+</footer>
+
+<script src="../lite/products.js"></script>
+<script src="../lite/shop.js"></script>
+</body>
+</html>
