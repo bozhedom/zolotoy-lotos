@@ -45,7 +45,7 @@
 .lt-add { border-radius: 10px; }
 .lt-step { border-radius: 10px; }
 
-.how { padding-block: 0 64px; }
+.how { padding-block: 8px 64px; }
 .how__in { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
 .how__text { padding: 36px; border-radius: 22px; background: var(--ink); color: #fff; }
 .how__text .h2 { color: #fff; }
@@ -90,3 +90,22 @@
   .facts li { padding: 12px 16px; }
   .how__text { padding: 26px 22px; }
 }
+
+/* Доработки: меню, каталог в 3 колонки, мобильная версия */
+.hdr__in { gap: 14px; }
+.lt-burger { border: 0; background: var(--soft); border-radius: 12px; }
+.sec-head__sub { margin: 0; color: var(--muted); }
+@media (min-width: 901px) {
+  .lt-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .lt-card__img { aspect-ratio: 5 / 4; padding: 10%; }
+}
+@media (max-width: 560px) {
+  .facts { display: none; }
+  .addr { min-height: 300px; }
+  .logo small { display: none; }
+  .lt-cats { margin-inline: -16px; padding-inline: 16px; }
+  .catalog { padding-block: 44px; }
+}
+
+/* Ссылка на хаб с вариантами — только на широком экране, чтобы не перекрывать контент */
+@media (max-width: 1299px) { .back-hub { display: none; } }

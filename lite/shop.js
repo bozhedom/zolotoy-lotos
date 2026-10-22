@@ -268,5 +268,32 @@
     new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } }), { threshold: .12 });
   if (io) $$('[data-rise]').forEach(el => { if (el.getBoundingClientRect().top > innerHeight) { el.classList.add('rise'); io.observe(el); } });
 
+  /* ---------- Боковое меню ----------
+     Пункты: каталог с категориями + секции страницы с атрибутом data-menu="Название". */
+  const sections = $$('[data-menu][id]');
+  document.body.insertAdjacentHTML('beforeend', `
+    <dialog class="lt-side" id="lt-side" aria-label="Меню"><div class="lt-side__in">
+      <header class="lt-side__h"><span class="lt-side__logo">${S.name}</span><button class="lt-x" data-close aria-label="Закрыть меню">×</button></header>
+      <nav class="lt-side__nav">
+        <a href="#catalog" data-goto-cat="all" data-side-go><b>Каталог</b></a>
+        <div class="lt-side__cats">${CATS.map(c => `<a href="#catalog" data-goto-cat="${c.id}" data-side-go>${c.title}<small>${P.filter(p => p.cat === c.id).length}</small></a>`).join('')}</div>
+        ${sections.map(s => `<a href="#${s.id}" data-side-go><b>${s.dataset.menu}</b></a>`).join('')}
+        <button data-cart-open data-side-go><b>Корзина</b><i data-cart-count class="is-empty">0</i></button>
+      </nav>
+      <footer class="lt-side__f">
+        <p><small>Пункт выдачи</small>${S.city}, ${S.pickup}<br><span>${S.pickupNote}</span></p>
+        <div class="lt-side__msg"><a href="${links.wa}" target="_blank" rel="noopener">WhatsApp</a><a href="${links.tg}" target="_blank" rel="noopener">Telegram</a><a href="${links.vk}" target="_blank" rel="noopener">ВК</a></div>
+      </footer>
+    </div></dialog>`);
+  const side = $('#lt-side');
+  side.addEventListener('click', e => {
+    if (e.target === side) return side.close();
+    const go = e.target.closest('[data-side-go]'); if (!go) return;
+    side.close();
+    const href = go.getAttribute('href');
+    if (href) { e.preventDefault(); $(href)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); }
+  });
+  document.addEventListener('click', e => { if (e.target.closest('[data-menu-open]')) side.showModal(); });
+
   buildCatalog(); refreshAll();
 })();

@@ -16,6 +16,7 @@
 
 <header class="hdr">
   <div class="wrap hdr__in">
+    <button class="lt-burger" data-menu-open aria-label="Открыть меню"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h11"/></svg></button>
     <a class="logo" href="#top"><img src="../assets/img/logo-emblem.png" alt=""><span>Золотой Лотос<small>товары из Азии</small></span></a>
     <nav class="hdr__nav" aria-label="Разделы">
       <a href="#catalog">Каталог</a>
@@ -52,25 +53,25 @@
     <div class="wrap">
       <div class="sec-head">
         <h2 class="h2">Каталог</h2>
-        <button class="sec-head__cart" data-cart-open>Корзина: <span data-cart-total>0 ₽</span></button>
+        <p class="sec-head__sub">Нажмите на товар — покажем, что к нему подойдёт.</p>
       </div>
       <div data-catalog></div>
     </div>
   </section>
 
-  <section class="how" id="how">
+  <section class="how" id="how" data-menu="Самовывоз">
     <div class="wrap how__in" data-rise>
       <div class="how__text">
         <h2 class="h2">Как получить заказ</h2>
         <ol class="steps">
           <li>Соберите корзину и оставьте телефон.</li>
           <li>Мы напишем, когда заказ будет готов.</li>
-          <li>Приезжайте, смотрите товар на месте и оплачиваете так, как договоритесь с продавцом.</li>
+          <li>Приезжайте, посмотрите товар на месте и оплатите, как договоритесь с продавцом.</li>
         </ol>
         <p class="soon">Онлайн-оплата и доставка — скоро.</p>
       </div>
       <div class="addr">
-        <img src="../assets/img/misty-pagoda.jpg" alt="Пагода в тумане над озером" loading="lazy">
+        <img src="../assets/img/guilin-river.jpg" alt="Река Ли и горы, Гуйлинь" loading="lazy">
         <div class="addr__c">
           <small>Пункт выдачи</small>
           <p><span data-shop="city"></span>, <b data-shop="pickup"></b></p>
@@ -81,7 +82,7 @@
     </div>
   </section>
 
-  <section class="contacts" id="contacts">
+  <section class="contacts" id="contacts" data-menu="Связаться">
     <div class="wrap contacts__in" data-rise>
       <div>
         <h2 class="h2">Есть вопрос?</h2>

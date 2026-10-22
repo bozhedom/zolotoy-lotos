@@ -9,7 +9,7 @@
 .back-hub { position: fixed; left: max(12px, env(safe-area-inset-left, 0px)); bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 40; padding: 6px 12px; border-radius: 999px; background: rgba(43,34,25,.8); color: #fff; font-size: 12px; text-decoration: none; }
 
 .hdr { position: sticky; top: 0; z-index: 20; background: rgba(251,248,243,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
-.hdr__in { display: flex; align-items: center; gap: 24px; min-height: 68px; }
+.hdr__in { display: flex; align-items: center; gap: 16px; min-height: 68px; }
 .logo { display: inline-flex; align-items: center; gap: 10px; font: 400 26px/1 var(--f-head); color: var(--accent); text-decoration: none; }
 .logo img { width: 42px; }
 .logo--s { font-size: 20px; } .logo--s img { width: 30px; }
@@ -98,3 +98,6 @@
   .cart-float [data-cart-count] { background: #fff; color: var(--accent); }
   .cart-float:has(.is-empty) { display: none; }
 }
+
+/* Ссылка на хаб с вариантами — только на широком экране, чтобы не перекрывать контент */
+@media (max-width: 1299px) { .back-hub { display: none; } }

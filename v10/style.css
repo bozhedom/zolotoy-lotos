@@ -98,3 +98,26 @@
   .msg { grid-template-columns: 1fr; }
   .place, .talk { padding: 22px; }
 }
+
+/* Доработки: меню, каталог в 3 колонки, мобильный первый экран */
+.hdr__left { display: flex; align-items: center; gap: 20px; }
+.lt-burger { border: 0; background: var(--soft); }
+@media (min-width: 901px) {
+  .lt-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+  .lt-card__img { aspect-ratio: 5 / 4; padding: 10%; }
+}
+@media (max-width: 900px) {
+  .hdr__in { grid-template-columns: auto 1fr auto; }
+  .logo { justify-self: start; }
+}
+@media (max-width: 560px) {
+  .hero__pics { padding: 0; }
+  .arch--small { display: none; }
+  .arch--big { aspect-ratio: 1 / 1; max-width: none; margin: 0; border-radius: 999px 999px 20px 20px; }
+  .hero__cta { gap: 14px 20px; }
+  .lt-cats { margin-inline: -16px; padding-inline: 16px; }
+  .cart-btn [data-cart-total] { display: none; }
+}
+
+/* Ссылка на хаб с вариантами — только на широком экране, чтобы не перекрывать контент */
+@media (max-width: 1299px) { .back-hub { display: none; } }

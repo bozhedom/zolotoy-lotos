@@ -16,11 +16,14 @@
 
 <header class="hdr">
   <div class="wrap hdr__in">
+    <div class="hdr__left">
+    <button class="lt-burger" data-menu-open aria-label="Открыть меню"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h11"/></svg></button>
     <nav class="hdr__nav" aria-label="Разделы">
       <a href="#catalog">Каталог</a>
       <a href="#how">Как купить</a>
       <a href="#contacts">Контакты</a>
     </nav>
+    </div>
     <a class="logo" href="#top"><img src="../assets/img/logo-emblem.png" alt=""><span>Золотой Лотос</span></a>
     <button class="cart-btn" data-cart-open aria-label="Корзина">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
@@ -48,15 +51,6 @@
     </div>
   </section>
 
-  <section class="cats-quick" aria-label="Популярные категории">
-    <div class="wrap cats-quick__in">
-      <a href="#catalog" data-goto-cat="face">Уход за лицом</a>
-      <a href="#catalog" data-goto-cat="body">Тело и баня</a>
-      <a href="#catalog" data-goto-cat="hair">Волосы</a>
-      <a href="#catalog" data-goto-cat="health">Здоровье</a>
-      <a href="#catalog" data-goto-cat="tea">Чай и травы</a>
-    </div>
-  </section>
 
   <section class="catalog" id="catalog">
     <div class="wrap">
@@ -66,7 +60,7 @@
     </div>
   </section>
 
-  <section class="how" id="how">
+  <section class="how" id="how" data-menu="Как купить">
     <div class="wrap how__in" data-rise>
       <div>
         <h2 class="h2">Как купить</h2>
@@ -80,7 +74,7 @@
     </div>
   </section>
 
-  <section class="contacts" id="contacts">
+  <section class="contacts" id="contacts" data-menu="Контакты и адрес">
     <div class="wrap contacts__in" data-rise>
       <div class="place">
         <p class="place__k">Пункт выдачи</p>
