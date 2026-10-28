@@ -118,3 +118,13 @@
   .logo img { width: 34px; }
   .logo span { font-size: 17px; }
 }
+
+/* Табы категорий и подкатегорий — по центру. Через auto-отступы, чтобы на телефоне лента прокручивалась с первого таба */
+.lt-cats > :first-child { margin-left: auto; }
+.lt-cats > :last-child { margin-right: auto; }
+.lt-tools { flex-direction: column; align-items: center; }
+.lt-subs { justify-content: center; }
+.lt-search, .lt-subs[hidden] + .lt-search { flex: none; width: 100%; max-width: 420px; margin: 0; }
+.lt-cats button { align-items: center; }
+.lt-cats button small { line-height: 1; }
+.catalog .sec-head { flex-direction: column; justify-content: center; text-align: center; gap: 6px; }
