@@ -1,6 +1,6 @@
 /* Вариант 3 «Туман над горами»: спокойный шалфейный зелёный, фото гор в рамке, заголовки — Prata. */
 :root {
-  --bg: #f4f5f0; --surface: #ffffff; --ink: #1f2a24; --muted: #66756c; --line: #dfe4dc;
+  --bg: #f4f5f0; --surface: #ffffff; --ink: #1f2a24; --muted: #5a685f; --line: #dfe4dc;
   --accent: #3d6b55; --accent-ink: #ffffff; --soft: #e9eee6; --gold: #b58a3a; --r: 14px; --r-btn: 10px;
   --f-head: 'Prata', Georgia, serif; --f-body: 'Manrope', system-ui, sans-serif;
   --h-modal: 400 28px/1.2 'Prata', Georgia, serif;
@@ -10,7 +10,7 @@
 .hdr { position: sticky; top: 0; z-index: 20; background: rgba(244,245,240,.94); backdrop-filter: blur(8px); }
 .hdr__in { display: flex; align-items: center; gap: 28px; min-height: 72px; }
 .logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
-.logo img { width: 42px; }
+.logo img { width: 42px; height: auto; }
 .logo span { display: grid; font: 400 21px/1.1 var(--f-head); }
 .logo small { font: 500 11px/1.4 var(--f-body); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
 .hdr__nav { display: flex; gap: 6px; margin-left: auto; }
@@ -18,7 +18,7 @@
 .hdr__nav a:hover { background: var(--soft); }
 .cart-btn { position: relative; display: grid; place-items: center; width: 46px; height: 46px; border: 0; border-radius: 12px; background: var(--ink); color: #fff; }
 .cart-btn svg { width: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; }
-.cart-btn [data-cart-count] { position: absolute; top: -6px; right: -6px; background: var(--gold); color: #fff; }
+.cart-btn [data-cart-count] { position: absolute; top: -6px; right: -6px; background: #8a6a2c; color: #fff; }
 
 .hero { padding-block: 8px 0; }
 .hero__frame { position: relative; display: grid; align-items: center; min-height: 540px; border-radius: 22px; overflow: hidden; color: #fff; }

@@ -1,8 +1,8 @@
 <!-- ЗОЛОТОЙ ЛОТОС · 02 · Главный экран (фото гор, заголовок, кнопка)
      Блок T123 «HTML-код». Ставится вторым, сразу после шапки.
-     Заменить: ссылку на фото (загрузить guilin-view.jpg в Тильду). -->
+     Заменить: три ссылки на фото — glavnoe-foto-960/1280/1600.webp из папки kartinki, загруженные в Тильду. -->
 <style>
-.zl-hero { --ink:#1f2a24; --muted:#66756c; --line:#dfe4dc; --surface:#fff; --f-head:'Prata',Georgia,serif; --f-body:'Manrope',Arial,sans-serif;
+.zl-hero { --ink:#1f2a24; --muted:#5a685f; --line:#dfe4dc; --surface:#fff; --f-head:'Prata',Georgia,serif; --f-body:'Manrope',Arial,sans-serif;
            max-width:1200px; margin:0 auto; padding:8px 16px 0; font:16px/1.6 var(--f-body); color:var(--ink); }
 .zl-hero *, .zl-hero *::before, .zl-hero *::after { box-sizing:border-box; }
 .zl-hero__frame { position:relative; display:grid; align-items:center; min-height:540px; border-radius:22px; overflow:hidden; color:#fff; }
@@ -27,8 +27,12 @@
 
 <section class="zl-hero">
   <div class="zl-hero__frame">
-    <!-- ЗАМЕНИТЬ: ссылку на фото, загруженное в Тильду -->
-    <img class="zl-hero__bg" src="https://bozhedom.github.io/zolotoy-lotos/assets/img/guilin-view.jpg" alt="Горы и река Ли в Гуйлине, Китай">
+    <!-- ЗАМЕНИТЬ: три ссылки (960, 1280, 1600) + ссылку в src (1280) -->
+    <img class="zl-hero__bg"
+         srcset="https://bozhedom.github.io/zolotoy-lotos/tilda/kartinki/glavnoe-foto-960.webp 960w, https://bozhedom.github.io/zolotoy-lotos/tilda/kartinki/glavnoe-foto-1280.webp 1280w, https://bozhedom.github.io/zolotoy-lotos/tilda/kartinki/glavnoe-foto-1600.webp 1600w"
+         sizes="(max-width:1200px) calc(100vw - 32px), 1168px"
+         src="https://bozhedom.github.io/zolotoy-lotos/tilda/kartinki/glavnoe-foto-1280.webp" width="1280" height="849" fetchpriority="high" decoding="async"
+         alt="Горы и река Ли в Гуйлине, Китай">
     <div class="zl-hero__c">
       <h1>Товары для здоровья и&nbsp;красоты из&nbsp;Таиланда, Китая и&nbsp;Кореи</h1>
       <p>Закажите на сайте и заберите в Южно-Сахалинске. Товар можно посмотреть на месте.</p>

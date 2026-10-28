@@ -2,14 +2,22 @@
    Без библиотек. Данные — lite/products.js. */
 (function () {
   const P = window.LT_PRODUCTS, CATS = window.LT_CATS, CTRY = window.LT_COUNTRIES, S = window.LT_SHOP;
-  const byId = Object.fromEntries(P.map(p => [p.id, p]));
+  const byId = Object.assign(Object.create(null), Object.fromEntries(P.map(p => [p.id, p])));
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const rub = n => n.toLocaleString('ru-RU') + ' ₽';
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const KEY = 'lt-cart-' + (document.documentElement.dataset.variant || 'x');
+  const smooth = () => matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+  // Шрифты подключены с media="print", чтобы не задерживать первую отрисовку; включаем их здесь (без inline-скриптов — из-за CSP)
+  $$('link[data-async-css]').forEach(l => { l.media = 'all'; });
 
+  // Корзину из localStorage проверяем: только известные товары и целое количество 1–99
   let cart = {};
-  try { cart = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+  try {
+    const raw = JSON.parse(localStorage.getItem(KEY));
+    if (raw && typeof raw === 'object' && !Array.isArray(raw))
+      for (const [id, q] of Object.entries(raw)) { const n = Math.floor(Number(q)); if (byId[id] && n > 0) cart[id] = Math.min(n, 99); }
+  } catch (e) {}
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(cart)); } catch (e) {} };
   const items = () => Object.entries(cart).filter(([id, q]) => byId[id] && q > 0).map(([id, q]) => ({ p: byId[id], q }));
   const total = () => items().reduce((s, i) => s + i.p.price * i.q, 0);
@@ -39,7 +47,8 @@
   function addBtn(p, small) {
     const q = cart[p.id] || 0;
     if (!q) return `<button class="lt-add${small ? ' lt-add--s' : ''}" data-add="${p.id}" aria-label="Добавить «${esc(p.title)}» в корзину">${small ? '+' : 'В корзину'}</button>`;
-    return `<span class="lt-step${small ? ' lt-step--s' : ''}"><button data-dec="${p.id}" aria-label="Меньше">−</button><b>${q}</b><button data-add="${p.id}" aria-label="Больше">+</button></span>`;
+    const t = esc(p.title);
+    return `<span class="lt-step${small ? ' lt-step--s' : ''}" role="group" aria-label="«${t}» в корзине: ${q} шт."><button data-dec="${p.id}" aria-label="Убрать одну: ${t}">−</button><b aria-hidden="true">${q | 0}</b><button data-add="${p.id}" aria-label="Добавить ещё: ${t}"${q >= 99 ? ' disabled' : ''}>+</button></span>`;
   }
 
   /* ---------- Каталог ---------- */
@@ -61,8 +70,8 @@
     root.innerHTML = `
       <div class="lt-cat">
         <nav class="lt-cats" aria-label="Категории">
-          <button data-cat="all">Все товары <small>${P.length}</small></button>
-          ${CATS.map(c => `<button data-cat="${c.id}">${c.title} <small>${P.filter(p => p.cat === c.id).length}</small></button>`).join('')}
+          <button data-cat="all" aria-pressed="true">Все товары <small>${P.length}</small></button>
+          ${CATS.map(c => `<button data-cat="${c.id}" aria-pressed="false">${c.title} <small>${P.filter(p => p.cat === c.id).length}</small></button>`).join('')}
         </nav>
         <div class="lt-cat__main">
           <div class="lt-tools">
@@ -71,34 +80,41 @@
               <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
               <input id="lt-q" type="search" placeholder="Найти: маска, бальзам, чай…" autocomplete="off"></label>
           </div>
-          <div class="lt-grid" aria-live="polite"></div>
+          <p class="lt-vh" role="status" data-found></p>
+          <div class="lt-grid"></div>
         </div>
       </div>`;
     root.addEventListener('click', e => {
-      const c = e.target.closest('[data-cat]'); if (c) { view.cat = c.dataset.cat; view.sub = 'all'; drawCatalog(); }
+      const c = e.target.closest('[data-cat]');
+      if (c) { view.cat = c.dataset.cat; view.sub = 'all'; if (c.closest('.lt-empty')) resetSearch(); drawCatalog(); }
       const s = e.target.closest('[data-sub]'); if (s) { view.sub = s.dataset.sub; drawCatalog(); }
     });
     $('#lt-q', root).addEventListener('input', e => { view.q = e.target.value.trim().toLowerCase(); drawCatalog(); });
     drawCatalog();
   }
 
+  function resetSearch() { view.q = ''; const q = $('#lt-q', root); if (q) q.value = ''; }
+
   function drawCatalog() {
-    $$('[data-cat]', root).forEach(b => b.classList.toggle('is-on', b.dataset.cat === view.cat));
+    const keep = document.activeElement?.closest('.lt-cat') && document.activeElement.matches('[data-sub]') ? document.activeElement.dataset.sub : null;
+    $$('.lt-cats [data-cat]', root).forEach(b => { const on = b.dataset.cat === view.cat; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on); });
     const cat = CATS.find(c => c.id === view.cat);
     const subs = $('.lt-subs', root);
-    subs.innerHTML = cat ? `<button data-sub="all" class="${view.sub === 'all' ? 'is-on' : ''}">Все</button>` +
-      Object.entries(cat.subs).map(([k, t]) => `<button data-sub="${k}" class="${view.sub === k ? 'is-on' : ''}">${t}</button>`).join('') : '';
+    const sub = (k, t) => `<button data-sub="${k}" class="${view.sub === k ? 'is-on' : ''}" aria-pressed="${view.sub === k}">${t}</button>`;
+    subs.innerHTML = cat ? sub('all', 'Все') + Object.entries(cat.subs).map(([k, t]) => sub(k, t)).join('') : '';
     subs.hidden = !cat;
     const list = P.filter(p => (view.cat === 'all' || p.cat === view.cat) && (view.sub === 'all' || p.sub === view.sub) &&
       (!view.q || (p.title + ' ' + p.desc).toLowerCase().includes(view.q)));
     $('.lt-grid', root).innerHTML = list.length ? list.map(card).join('') :
       `<p class="lt-empty">Ничего не нашлось. Попробуйте другое слово или <button data-cat="all">покажите все товары</button>.</p>`;
+    $('[data-found]', root).textContent = list.length ? `Найдено: ${list.length}` : 'Ничего не нашлось';
+    if (keep) $(`[data-sub="${keep}"]`, subs)?.focus();
   }
 
   // Переходы из меню / героя: <a data-goto-cat="face">
   document.addEventListener('click', e => {
     const a = e.target.closest('[data-goto-cat]'); if (!a || !root) return;
-    view.cat = a.dataset.gotoCat; view.sub = 'all'; drawCatalog();
+    view.cat = a.dataset.gotoCat; view.sub = 'all'; resetSearch(); drawCatalog();
   });
 
   /* ---------- Карточка товара ---------- */
@@ -129,7 +145,7 @@
   }
 
   function miniRow(r) {
-    return `<div class="lt-mini"><button class="lt-mini__img" data-open="${r.id}" aria-label="Открыть: ${esc(r.title)}">${art(r)}</button>
+    return `<div class="lt-mini"><button class="lt-mini__img" data-open="${r.id}" tabindex="-1" aria-hidden="true">${art(r)}</button>
       <div><button class="lt-mini__t" data-open="${r.id}">${esc(r.title)}</button><span class="lt-mini__p">${rub(r.price)}</span></div>
       <span data-ctl="${r.id}">${addBtn(r, true)}</span></div>`;
   }
@@ -161,8 +177,8 @@
       box.innerHTML = head('Корзина') + `
         <div class="lt-dbody">
           <ul class="lt-lines">${list.map(({ p, q }) => `<li class="lt-line">
-            <button class="lt-line__img" data-open="${p.id}" aria-label="${esc(p.title)}">${art(p)}</button>
-            <div class="lt-line__t"><b>${esc(p.title)}</b><small>${rub(p.price)} × ${q}</small></div>
+            <button class="lt-line__img" data-open="${p.id}" tabindex="-1" aria-hidden="true">${art(p)}</button>
+            <div class="lt-line__t"><button class="lt-line__name" data-open="${p.id}">${esc(p.title)}</button><small>${rub(p.price)} × ${q}</small></div>
             <span data-ctl="${p.id}">${addBtn(p, true)}</span></li>`).join('')}</ul>
           ${recs.length ? `<section class="lt-rel lt-rel--cart"><h3>К заказу подойдёт</h3><div class="lt-rel__list">${recs.map(miniRow).join('')}</div></section>` : ''}
         </div>
@@ -176,17 +192,17 @@
         <form class="lt-form" id="lt-form" novalidate>
           <p class="lt-form__lead">${count()} ${plural(count(), 'товар', 'товара', 'товаров')} на ${rub(total())}. Оставьте контакты — мы соберём заказ и напишем, когда можно забирать.</p>
           <label for="lt-name">Ваше имя</label>
-          <input id="lt-name" name="name" autocomplete="name" required placeholder="Анна">
+          <input id="lt-name" name="name" autocomplete="name" required maxlength="60" aria-describedby="lt-err" placeholder="Анна">
           <label for="lt-phone">Телефон</label>
-          <input id="lt-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="+7 900 123-45-67">
+          <input id="lt-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="20" aria-describedby="lt-err" placeholder="+7 900 123-45-67">
           <fieldset><legend>Куда написать</legend>
             <div class="lt-radio">${['WhatsApp', 'Telegram', 'Позвонить'].map((m, i) => `<label><input type="radio" name="via" id="lt-via-${i}" value="${m}"${i ? '' : ' checked'}><span>${m}</span></label>`).join('')}</div>
           </fieldset>
           <label for="lt-comment">Комментарий <small>(необязательно)</small></label>
-          <textarea id="lt-comment" name="comment" rows="2" placeholder="Например: заберу в субботу после обеда"></textarea>
+          <textarea id="lt-comment" name="comment" rows="2" maxlength="500" placeholder="Например: заберу в субботу после обеда"></textarea>
           <div class="lt-pick"><b>Самовывоз</b><span>${S.city}, ${S.pickup}</span><small>${S.pickupNote}</small></div>
-          <label class="lt-agree"><input type="checkbox" name="agree" required><span>Даю <a href="${S.consentUrl}" target="_blank">согласие на обработку персональных данных</a> и принимаю <a href="${S.privacyUrl}" target="_blank">политику конфиденциальности</a></span></label>
-          <p class="lt-err" role="alert" hidden></p>
+          <label class="lt-agree"><input type="checkbox" name="agree" required aria-describedby="lt-err"><span>Даю <a href="${S.consentUrl}" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и принимаю <a href="${S.privacyUrl}" target="_blank" rel="noopener">политику конфиденциальности</a></span></label>
+          <p class="lt-err" id="lt-err" role="alert" hidden></p>
           <div class="lt-form__btns"><button type="button" class="lt-btn lt-btn--ghost" data-pane="cart">Назад</button><button class="lt-btn">Отправить заказ</button></div>
         </form>`;
       $('#lt-form').addEventListener('submit', submit);
@@ -195,15 +211,16 @@
       setTimeout(() => $('#lt-name')?.focus(), 30);
     } else {
       const o = lastOrder;
-      const text = `Здравствуйте! Заказ ${o.num}:\n` + o.lines.map(l => `— ${l.p.title} × ${l.q}`).join('\n') + `\nИтого: ${rub(o.sum)}\n${o.name}, ${o.phone}`;
+      const text = `Здравствуйте! Заказ ${o.num}:\n` + o.lines.map(l => `— ${l.p.title} × ${l.q}`).join('\n') + `\nИтого: ${rub(o.sum)}\n${o.name}, ${o.phone}` + (o.comment ? `\nКомментарий: ${o.comment}` : '');
       box.innerHTML = head('Заказ принят') + `
         <div class="lt-done">
           <p class="lt-done__num">Заказ ${o.num}</p>
-          <p>Спасибо, ${esc(o.name)}! Мы соберём заказ и напишем вам в ${o.via === 'Позвонить' ? 'течение дня по телефону' : o.via} на номер ${esc(o.phone)}.</p>
+          <p>Спасибо, ${esc(o.name)}! Мы соберём заказ и напишем вам в ${o.via === 'Позвонить' ? 'течение дня по телефону' : esc(o.via)} на номер ${esc(o.phone)}.</p>
           <div class="lt-pick lt-pick--big"><b>Где забрать</b><span>${S.city}, ${S.pickup}</span><small>${S.pickupNote}<br>${S.hours}</small>
             <a class="lt-link" href="${S.mapUrl}" target="_blank" rel="noopener">Открыть на карте →</a></div>
           <p class="lt-note">Товар можно посмотреть на месте. Оплата при получении — договоритесь с продавцом, как удобнее: наличные или перевод.</p>
           <ul class="lt-done__list">${o.lines.map(l => `<li><span>${esc(l.p.title)} × ${l.q}</span><b>${rub(l.p.price * l.q)}</b></li>`).join('')}<li class="is-sum"><span>Итого</span><b>${rub(o.sum)}</b></li></ul>
+          ${o.comment ? `<p class="lt-note">Ваш комментарий: ${esc(o.comment)}</p>` : ''}
           <a class="lt-btn lt-btn--ghost lt-btn--wide" href="https://wa.me/${S.whatsapp}?text=${encodeURIComponent(text)}" target="_blank" rel="noopener">Отправить копию в WhatsApp</a>
           <button class="lt-btn lt-btn--wide" data-close>Готово</button>
         </div>`;
@@ -213,9 +230,10 @@
   function submit(e) {
     e.preventDefault();
     const f = e.target.elements, err = $('.lt-err', e.target), name = f.name.value.trim(), phone = f.phone.value.trim();
-    const digits = phone.replace(/\D/g, '');
+    // Российский номер: +7…, 8… или 10 цифр без кода страны; пробелы, скобки и дефисы допустимы
+    const okPhone = /^(\+7|8|7)?\d{10}$/.test(phone.replace(/[\s()-]/g, ''));
     if (!name) return showErr(err, 'Напишите, как к вам обращаться.', f.name);
-    if (digits.length < 10 || digits.length > 12) return showErr(err, 'Проверьте номер телефона: нужно 10–11 цифр.', f.phone);
+    if (!okPhone) return showErr(err, 'Проверьте номер телефона: например, +7 900 123-45-67.', f.phone);
     if (!f.agree.checked) return showErr(err, 'Отметьте согласие на обработку данных — без него не сможем принять заказ.', f.agree);
     lastOrder = { num: 'ЗЛ-' + String(Date.now()).slice(-4), name, phone, via: f.via.value, comment: f.comment.value.trim(), lines: items(), sum: total() };
     // Здесь заказ уходит продавцу. В Тильде — форма с отправкой в Telegram/почту/CRM.
@@ -228,10 +246,22 @@
   function openCart() { pane = 'cart'; drawDrawer(); if (!drawer.open) drawer.showModal(); }
 
   /* ---------- Общие события ---------- */
+  // Куда вернуть фокус после перерисовки: тот же товар, та же кнопка (+ или −), в том же окне
+  function focusSpot() {
+    const a = document.activeElement, ctl = a?.closest('[data-ctl]');
+    return ctl && { id: ctl.dataset.ctl, kind: a.matches('[data-dec]') ? 'dec' : 'add', box: ctl.closest('dialog') || document.body };
+  }
+  function restoreFocus(f) {
+    if (!f) return;
+    const ctl = $$(`[data-ctl="${f.id}"]`).find(c => (c.closest('dialog') || document.body) === f.box);
+    const btn = ctl?.querySelector(`[data-${f.kind}]`) || ctl?.querySelector('button') || (f.box.open && $('.lt-x', f.box));
+    btn?.focus();
+  }
   function refreshAll() {
     $$('[data-ctl]').forEach(el => { const p = byId[el.dataset.ctl]; el.innerHTML = addBtn(p, !!el.closest('.lt-mini, .lt-line')); });
     const n = count();
     $$('[data-cart-count]').forEach(el => { el.textContent = n; el.classList.toggle('is-empty', !n); });
+    $$('[data-cart-open][aria-label]').forEach(el => el.setAttribute('aria-label', n ? `Корзина: ${n} ${plural(n, 'товар', 'товара', 'товаров')}` : 'Корзина, пусто'));
     $$('[data-cart-total]').forEach(el => el.textContent = rub(total()));
   }
   let toastT;
@@ -241,16 +271,23 @@
     const host = $$('dialog').find(d => d.open) || document.body;
     if (t.parentNode !== host) { t.classList.remove('is-on'); host.append(t); }
     requestAnimationFrame(() => t.classList.add('is-on'));
-    clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('is-on'), 2600);
+    clearTimeout(toastT); toastT = setTimeout(hideToast, 5000);
+  }
+  function hideToast() {
+    const t = $('.lt-toast');
+    if (t.matches(':hover, :focus-within')) { toastT = setTimeout(hideToast, 1500); return; }
+    t.classList.remove('is-on');
   }
 
   document.addEventListener('click', e => {
     const add = e.target.closest('[data-add]'), dec = e.target.closest('[data-dec]');
     if (add || dec) {
       const id = (add || dec).dataset.add || dec.dataset.dec, was = cart[id] || 0;
-      cart[id] = Math.max(0, was + (add ? 1 : -1)); if (!cart[id]) delete cart[id];
+      cart[id] = Math.min(99, Math.max(0, was + (add ? 1 : -1))); if (!cart[id]) delete cart[id];
+      const f = focusSpot();
       save(); refreshAll();
       if (drawer.open && pane === 'cart') drawDrawer();
+      restoreFocus(f);
       if (add && !was) toast(`«${esc(byId[id].title)}» в корзине · <button data-cart-open>Открыть</button>`);
       return;
     }
@@ -260,10 +297,15 @@
     const pn = e.target.closest('[data-pane]');
     if (pn && drawer.contains(pn)) { pane = pn.dataset.pane; drawDrawer(); return; }
     const cl = e.target.closest('[data-close]');
-    if (cl) { cl.closest('dialog').close(); if (cl.dataset.to) $(cl.dataset.to)?.scrollIntoView({ behavior: 'smooth' }); }
+    if (cl) { cl.closest('dialog').close(); if (cl.dataset.to) $(cl.dataset.to)?.scrollIntoView({ behavior: smooth() }); }
   });
-  // Клик по затемнению закрывает окно
-  [modal, drawer].forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
+  // Клик по затемнению закрывает окно. Нажали внутри и отпустили снаружи (выделяли текст) — не закрываем
+  function closeOnBackdrop(d) {
+    let down = null;
+    d.addEventListener('pointerdown', e => { down = e.target; });
+    d.addEventListener('click', e => { if (e.target === d && down === d) d.close(); });
+  }
+  [modal, drawer].forEach(closeOnBackdrop);
 
   /* ---------- Данные магазина в разметке ---------- */
   const links = { map: S.mapUrl, wa: `https://wa.me/${S.whatsapp}`, tg: `https://t.me/${S.telegram}`, vk: `https://vk.com/${S.vk}` };
@@ -294,12 +336,19 @@
       </footer>
     </div></dialog>`);
   const side = $('#lt-side');
+  closeOnBackdrop(side);
   side.addEventListener('click', e => {
-    if (e.target === side) return side.close();
+    if (e.target === side) return;
     const go = e.target.closest('[data-side-go]'); if (!go) return;
     side.close();
     const href = go.getAttribute('href');
-    if (href) { e.preventDefault(); $(href)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); }
+    if (href) {
+      e.preventDefault();
+      const to = $(href); if (!to) return;
+      to.scrollIntoView({ behavior: smooth() });
+      if (!to.hasAttribute('tabindex')) to.setAttribute('tabindex', '-1');
+      to.focus({ preventScroll: true });
+    }
   });
   document.addEventListener('click', e => { if (e.target.closest('[data-menu-open]')) side.showModal(); });
 
