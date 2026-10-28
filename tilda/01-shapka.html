@@ -1,0 +1,113 @@
+<!-- ЗОЛОТОЙ ЛОТОС · 01 · Шапка и боковое меню
+     Блок T123 «HTML-код». Ставится ПЕРВЫМ блоком на главной.
+     Заменить: телефон/мессенджеры (строки с пометкой ЗАМЕНИТЬ), ссылку на логотип. -->
+<style>
+.zl { --bg:#f4f5f0; --surface:#fff; --ink:#1f2a24; --muted:#66756c; --line:#dfe4dc; --accent:#3d6b55; --soft:#e9eee6; --gold:#b58a3a;
+      --f-head:'Prata',Georgia,serif; --f-body:'Manrope',Arial,sans-serif; font:16px/1.6 var(--f-body); color:var(--ink); }
+.zl *, .zl *::before, .zl *::after { box-sizing:border-box; }
+.zl a { color:inherit; }
+.zl button { font:inherit; color:inherit; cursor:pointer; }
+.zl-hdr { position:fixed; top:0; left:0; right:0; z-index:990; background:rgba(244,245,240,.94); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); }
+.zl-hdr__in { max-width:1200px; margin:0 auto; padding:0 16px; display:flex; align-items:center; gap:14px; min-height:72px; }
+.zl-space { height:72px; }
+html { scroll-behavior:smooth; }
+#catalog, #pickup, #contacts { scroll-margin-top:84px; }
+.zl-burger, .zl-cart { flex:none; display:grid; place-items:center; width:44px; height:44px; padding:0; border:0; border-radius:12px; }
+.zl-burger { background:var(--soft); }
+.zl-burger svg, .zl-cart svg { width:22px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; }
+.zl-logo { display:inline-flex; align-items:center; gap:10px; text-decoration:none; }
+.zl-logo img { width:42px; }
+.zl-logo span { display:grid; font:400 21px/1.1 var(--f-head); white-space:nowrap; }
+.zl-logo small { font:500 11px/1.4 var(--f-body); letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+.zl-nav { display:flex; gap:6px; margin-left:auto; }
+.zl-nav a { padding:8px 14px; border-radius:10px; font-weight:600; font-size:15px; text-decoration:none; transition:background .2s; }
+.zl-nav a:hover { background:var(--soft); }
+.zl .zl-cart { position:relative; background:var(--ink); color:#fff; }
+.zl-cart i { position:absolute; top:-6px; right:-6px; min-width:20px; height:20px; padding:0 5px; border-radius:999px; background:var(--gold); color:#fff; font:700 12px/20px var(--f-body); font-style:normal; text-align:center; }
+.zl-cart i:empty { display:none; }
+.zl-side { margin:0 auto 0 0; padding:0; border:0; width:min(340px,88%); height:100%; max-height:100%; background:var(--surface); color:var(--ink); }
+.zl-side::backdrop { background:rgba(20,16,12,.45); }
+.zl-side__in { display:flex; flex-direction:column; height:100%; }
+.zl-side__h { position:relative; padding:22px 60px 18px 22px; border-bottom:1px solid var(--line); font:400 24px/1.2 var(--f-head); color:var(--accent); }
+.zl-x { position:absolute; top:14px; right:10px; width:40px; height:40px; border:0; border-radius:50%; background:var(--soft); font-size:24px; line-height:1; }
+.zl-side nav { flex:1; overflow-y:auto; display:grid; align-content:start; padding:10px 12px; }
+.zl-side nav a { display:flex; align-items:center; justify-content:space-between; min-height:50px; padding:0 12px; border-radius:12px; font-size:17px; font-weight:600; text-decoration:none; }
+.zl-side nav a:hover { background:var(--soft); }
+.zl-side__f { display:grid; gap:12px; padding:18px 22px 22px; border-top:1px solid var(--line); font-size:14px; line-height:1.45; }
+.zl-side__f p { margin:0; }
+.zl-side__f small { display:block; margin-bottom:2px; font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
+.zl-side__f span { color:var(--muted); font-size:13px; }
+.zl-msg { display:flex; flex-wrap:wrap; gap:6px; }
+.zl-msg a { padding:8px 14px; border-radius:999px; background:var(--soft); font-weight:600; text-decoration:none; }
+@media (max-width:900px) { .zl-nav { display:none; } .zl-cart { margin-left:auto; } }
+@media (max-width:560px) { .zl-logo small { display:none; } .zl-logo span { font-size:19px; } }
+@media (max-width:360px) { .zl-hdr__in { gap:10px; } .zl-logo { gap:8px; } .zl-logo img { width:34px; } .zl-logo span { font-size:17px; } }
+</style>
+
+<div class="zl">
+  <header class="zl-hdr">
+    <div class="zl-hdr__in">
+      <button class="zl-burger" type="button" data-zl-menu aria-label="Открыть меню"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h11"/></svg></button>
+      <a class="zl-logo" href="#top">
+        <!-- ЗАМЕНИТЬ: ссылку на логотип, загруженный в Тильду -->
+        <img src="https://bozhedom.github.io/zolotoy-lotos/assets/img/logo-emblem.png" alt="">
+        <span>Золотой Лотос<small>товары из Азии</small></span>
+      </a>
+      <nav class="zl-nav" aria-label="Разделы">
+        <a href="#catalog">Каталог</a>
+        <a href="#pickup">Самовывоз</a>
+        <a href="#contacts">Связаться</a>
+      </nav>
+      <button class="zl-cart" type="button" data-zl-cart aria-label="Корзина">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <i data-zl-count></i>
+      </button>
+    </div>
+  </header>
+  <div class="zl-space" id="top"></div>
+
+  <dialog class="zl-side" aria-label="Меню">
+    <div class="zl-side__in">
+      <div class="zl-side__h">Золотой Лотос<button class="zl-x" type="button" data-zl-close aria-label="Закрыть меню">×</button></div>
+      <nav>
+        <a href="#catalog">Каталог</a>
+        <a href="#pickup">Самовывоз</a>
+        <a href="#contacts">Связаться</a>
+        <a href="#" data-zl-cart>Корзина</a>
+      </nav>
+      <div class="zl-side__f">
+        <p><small>Пункт выдачи</small>Южно-Сахалинск, пр. Мира, 229, рынок «Янтарь», место 2А<br><span>Буферная зона, напротив павильона с газетами</span></p>
+        <div class="zl-msg">
+          <a href="https://wa.me/79000000000" target="_blank" rel="noopener">WhatsApp</a><!-- ЗАМЕНИТЬ номер -->
+          <a href="https://t.me/zolotoy_lotos" target="_blank" rel="noopener">Telegram</a><!-- ЗАМЕНИТЬ ник -->
+          <a href="https://vk.com/zolotoy_lotos" target="_blank" rel="noopener">ВК</a><!-- ЗАМЕНИТЬ -->
+        </div>
+      </div>
+    </div>
+  </dialog>
+</div>
+
+<script>
+(function () {
+  var side = document.querySelector('.zl-side');
+  // Корзина Тильды (блок ST100): открываем её своей кнопкой
+  function openCart() {
+    if (typeof window.tcart__openCart === 'function') { window.tcart__openCart(); return; }
+    var icon = document.querySelector('.t706__carticon-wrapper, .t706__carticon');
+    if (icon) icon.click();
+  }
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-zl-menu]')) { side.showModal(); return; }
+    if (e.target.closest('[data-zl-close]') || e.target === side) { side.close(); return; }
+    if (e.target.closest('[data-zl-cart]')) { e.preventDefault(); if (side.open) side.close(); openCart(); return; }
+    var a = e.target.closest('.zl-side nav a[href^="#"]');
+    if (a) side.close();
+  });
+  // Счётчик товаров на кнопке корзины
+  var count = document.querySelector('[data-zl-count]');
+  setInterval(function () {
+    var n = window.tcart && window.tcart.total ? window.tcart.total : 0;
+    count.textContent = n > 0 ? n : '';
+  }, 700);
+})();
+</script>

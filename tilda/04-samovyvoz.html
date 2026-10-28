@@ -1,0 +1,45 @@
+<!-- ЗОЛОТОЙ ЛОТОС · 04 · «Как получить заказ» + пункт выдачи
+     Блок T123 «HTML-код». Ставится после каталога.
+     Заменить: ссылку на фото (загрузить guilin-river.jpg в Тильду). -->
+<style>
+.zl-how { --ink:#1f2a24; --muted:#66756c; --accent:#3d6b55; --f-head:'Prata',Georgia,serif; --f-body:'Manrope',Arial,sans-serif;
+          max-width:1200px; margin:0 auto; padding:8px 16px 64px; display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:stretch;
+          font:16px/1.6 var(--f-body); color:var(--ink); }
+.zl-how *, .zl-how *::before, .zl-how *::after { box-sizing:border-box; }
+.zl-how__text { padding:36px; border-radius:22px; background:var(--ink); color:#fff; }
+.zl-how h2 { margin:0; font:400 clamp(32px,4vw,46px)/1.1 var(--f-head); color:#fff; text-wrap:balance; }
+.zl-how ol { margin:22px 0 0; padding:0 0 0 22px; display:grid; gap:12px; font-size:17px; }
+.zl-how li::marker { font-family:var(--f-head); color:#d8b673; }
+.zl-how__soon { margin:22px 0 0; padding-top:16px; border-top:1px solid rgba(255,255,255,.15); color:rgba(255,255,255,.65); font-size:14px; }
+.zl-addr { position:relative; min-height:340px; border-radius:22px; overflow:hidden; display:grid; align-items:end; }
+.zl-addr img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.zl-addr__c { position:relative; margin:16px; padding:20px 22px; border-radius:14px; background:rgba(255,255,255,.95); display:grid; gap:4px; }
+.zl-addr__c small { font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); }
+.zl-addr__c p { margin:0; font-size:18px; line-height:1.4; }
+.zl-addr__c .zl-addr__note { font-size:14px; color:var(--muted); }
+.zl-addr__c a { margin-top:6px; font-weight:700; color:var(--accent); text-decoration:none; }
+@media (max-width:900px) { .zl-how { grid-template-columns:1fr; } }
+@media (max-width:560px) { .zl-how__text { padding:26px 22px; } .zl-addr { min-height:300px; } }
+</style>
+
+<section class="zl-how" id="pickup">
+  <div class="zl-how__text">
+    <h2>Как получить заказ</h2>
+    <ol>
+      <li>Соберите корзину и оставьте телефон.</li>
+      <li>Мы напишем, когда заказ будет готов.</li>
+      <li>Приезжайте, посмотрите товар на месте и оплатите, как договоритесь с продавцом.</li>
+    </ol>
+    <p class="zl-how__soon">Онлайн-оплата и доставка — скоро.</p>
+  </div>
+  <div class="zl-addr">
+    <!-- ЗАМЕНИТЬ: ссылку на фото, загруженное в Тильду -->
+    <img src="https://bozhedom.github.io/zolotoy-lotos/assets/img/guilin-river.jpg" alt="Река Ли и горы, Гуйлинь" loading="lazy">
+    <div class="zl-addr__c">
+      <small>Пункт выдачи</small>
+      <p>Южно-Сахалинск, <b>пр. Мира, 229, рынок «Янтарь», место 2А</b></p>
+      <p class="zl-addr__note">Буферная зона, напротив павильона с газетами</p>
+      <a href="https://yandex.ru/maps/?text=%D0%AE%D0%B6%D0%BD%D0%BE-%D0%A1%D0%B0%D1%85%D0%B0%D0%BB%D0%B8%D0%BD%D1%81%D0%BA%2C%20%D0%BF%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%20%D0%9C%D0%B8%D1%80%D0%B0%2C%20229" target="_blank" rel="noopener">Открыть на карте →</a>
+    </div>
+  </div>
+</section>

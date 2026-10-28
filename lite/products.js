@@ -46,5 +46,7 @@ window.LT_SHOP = {
   phone: '+7 (900) 000-00-00',               // заменить
   whatsapp: '79000000000',                   // номер без +, для ссылки wa.me
   telegram: 'zolotoy_lotos',                 // ник без @
-  vk: 'zolotoy_lotos'
+  vk: 'zolotoy_lotos',
+  privacyUrl: '../privacy/',                 // политика конфиденциальности
+  consentUrl: '../soglasie/'                 // согласие на обработку персональных данных
 };

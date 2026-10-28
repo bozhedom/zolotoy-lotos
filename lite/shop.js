@@ -185,10 +185,13 @@
           <label for="lt-comment">Комментарий <small>(необязательно)</small></label>
           <textarea id="lt-comment" name="comment" rows="2" placeholder="Например: заберу в субботу после обеда"></textarea>
           <div class="lt-pick"><b>Самовывоз</b><span>${S.city}, ${S.pickup}</span><small>${S.pickupNote}</small></div>
-          <p class="lt-err" hidden></p>
+          <label class="lt-agree"><input type="checkbox" name="agree" required><span>Даю <a href="${S.consentUrl}" target="_blank">согласие на обработку персональных данных</a> и принимаю <a href="${S.privacyUrl}" target="_blank">политику конфиденциальности</a></span></label>
+          <p class="lt-err" role="alert" hidden></p>
           <div class="lt-form__btns"><button type="button" class="lt-btn lt-btn--ghost" data-pane="cart">Назад</button><button class="lt-btn">Отправить заказ</button></div>
         </form>`;
       $('#lt-form').addEventListener('submit', submit);
+      // Ошибка пропадает, как только поле исправили
+      $('#lt-form').addEventListener('input', e => { e.target.removeAttribute('aria-invalid'); $('.lt-err', drawer).hidden = true; });
       setTimeout(() => $('#lt-name')?.focus(), 30);
     } else {
       const o = lastOrder;
@@ -212,7 +215,8 @@
     const f = e.target.elements, err = $('.lt-err', e.target), name = f.name.value.trim(), phone = f.phone.value.trim();
     const digits = phone.replace(/\D/g, '');
     if (!name) return showErr(err, 'Напишите, как к вам обращаться.', f.name);
-    if (digits.length < 10) return showErr(err, 'Проверьте номер телефона: нужно 10–11 цифр.', f.phone);
+    if (digits.length < 10 || digits.length > 12) return showErr(err, 'Проверьте номер телефона: нужно 10–11 цифр.', f.phone);
+    if (!f.agree.checked) return showErr(err, 'Отметьте согласие на обработку данных — без него не сможем принять заказ.', f.agree);
     lastOrder = { num: 'ЗЛ-' + String(Date.now()).slice(-4), name, phone, via: f.via.value, comment: f.comment.value.trim(), lines: items(), sum: total() };
     // Здесь заказ уходит продавцу. В Тильде — форма с отправкой в Telegram/почту/CRM.
     cart = {}; save(); refreshAll();
@@ -232,7 +236,11 @@
   }
   let toastT;
   function toast(msg) {
-    const t = $('.lt-toast'); t.innerHTML = msg; t.classList.add('is-on');
+    const t = $('.lt-toast'); t.innerHTML = msg;
+    // Если открыто окно, всё вне его неактивно — переносим подсказку внутрь окна
+    const host = $$('dialog').find(d => d.open) || document.body;
+    if (t.parentNode !== host) { t.classList.remove('is-on'); host.append(t); }
+    requestAnimationFrame(() => t.classList.add('is-on'));
     clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('is-on'), 2600);
   }
 
