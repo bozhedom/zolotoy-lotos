@@ -190,20 +190,18 @@
     } else if (pane === 'form') {
       box.innerHTML = head('Оформление') + `
         <form class="lt-form" id="lt-form" novalidate>
-          <p class="lt-form__lead">${count()} ${plural(count(), 'товар', 'товара', 'товаров')} на ${rub(total())}. Оставьте контакты — мы соберём заказ и напишем, когда можно забирать.</p>
+          <p class="lt-note">Это демонстрация магазина: заявка автоматически не отправляется. Для заказа свяжитесь с магазином.</p>
+          <p class="lt-form__lead">${count()} ${plural(count(), 'товар', 'товара', 'товаров')} на ${rub(total())}. Заполните контакты и комментарий, чтобы подготовить письмо магазину.</p>
           <label for="lt-name">Ваше имя</label>
           <input id="lt-name" name="name" autocomplete="name" required maxlength="60" aria-describedby="lt-err" placeholder="Анна">
           <label for="lt-phone">Телефон</label>
           <input id="lt-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="20" aria-describedby="lt-err" placeholder="+7 900 123-45-67">
-          <fieldset><legend>Куда написать</legend>
-            <div class="lt-radio">${['WhatsApp', 'Telegram', 'Позвонить'].map((m, i) => `<label><input type="radio" name="via" id="lt-via-${i}" value="${m}"${i ? '' : ' checked'}><span>${m}</span></label>`).join('')}</div>
-          </fieldset>
           <label for="lt-comment">Комментарий <small>(необязательно)</small></label>
           <textarea id="lt-comment" name="comment" rows="2" maxlength="500" placeholder="Например: заберу в субботу после обеда"></textarea>
           <div class="lt-pick"><b>Самовывоз</b><span>${S.city}, ${S.pickup}</span><small>${S.pickupNote}</small></div>
-          <label class="lt-agree"><input type="checkbox" name="agree" required aria-describedby="lt-err"><span>Даю <a href="${S.consentUrl}" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и принимаю <a href="${S.privacyUrl}" target="_blank" rel="noopener">политику конфиденциальности</a></span></label>
+          <label class="lt-agree"><input type="checkbox" name="agree" required aria-describedby="lt-err"><span>Даю <a href="${S.consentUrl}" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и ознакомлен(а) с <a href="${S.privacyUrl}" target="_blank" rel="noopener">политикой конфиденциальности</a></span></label>
           <p class="lt-err" id="lt-err" role="alert" hidden></p>
-          <div class="lt-form__btns"><button type="button" class="lt-btn lt-btn--ghost" data-pane="cart">Назад</button><button class="lt-btn">Отправить заказ</button></div>
+          <div class="lt-form__btns"><button type="button" class="lt-btn lt-btn--ghost" data-pane="cart">Назад</button><button class="lt-btn">Посмотреть итог</button></div>
         </form>`;
       $('#lt-form').addEventListener('submit', submit);
       // Ошибка пропадает, как только поле исправили
@@ -212,16 +210,16 @@
     } else {
       const o = lastOrder;
       const text = `Здравствуйте! Заказ ${o.num}:\n` + o.lines.map(l => `— ${l.p.title} × ${l.q}`).join('\n') + `\nИтого: ${rub(o.sum)}\n${o.name}, ${o.phone}` + (o.comment ? `\nКомментарий: ${o.comment}` : '');
-      box.innerHTML = head('Заказ принят') + `
+      box.innerHTML = head('Предпросмотр заказа') + `
         <div class="lt-done">
           <p class="lt-done__num">Заказ ${o.num}</p>
-          <p>Спасибо, ${esc(o.name)}! Мы соберём заказ и напишем вам в ${o.via === 'Позвонить' ? 'течение дня по телефону' : esc(o.via)} на номер ${esc(o.phone)}.</p>
+          <p>${esc(o.name)}, это предпросмотр: заказ ещё не отправлен. Нажмите «Подготовить письмо» и отправьте его в почтовом приложении либо позвоните в магазин.</p>
           <div class="lt-pick lt-pick--big"><b>Где забрать</b><span>${S.city}, ${S.pickup}</span><small>${S.pickupNote}<br>${S.hours}</small>
             <a class="lt-link" href="${S.mapUrl}" target="_blank" rel="noopener">Открыть на карте →</a></div>
           <p class="lt-note">Товар можно посмотреть на месте. Оплата при получении — договоритесь с продавцом, как удобнее: наличные или перевод.</p>
           <ul class="lt-done__list">${o.lines.map(l => `<li><span>${esc(l.p.title)} × ${l.q}</span><b>${rub(l.p.price * l.q)}</b></li>`).join('')}<li class="is-sum"><span>Итого</span><b>${rub(o.sum)}</b></li></ul>
           ${o.comment ? `<p class="lt-note">Ваш комментарий: ${esc(o.comment)}</p>` : ''}
-          <a class="lt-btn lt-btn--ghost lt-btn--wide" href="https://wa.me/${S.whatsapp}?text=${encodeURIComponent(text)}" target="_blank" rel="noopener">Отправить копию в WhatsApp</a>
+          <a class="lt-btn lt-btn--ghost lt-btn--wide" href="mailto:${S.email}?subject=${encodeURIComponent('Заказ ' + o.num)}&amp;body=${encodeURIComponent(text)}">Подготовить письмо</a>
           <button class="lt-btn lt-btn--wide" data-close>Готово</button>
         </div>`;
     }
@@ -235,9 +233,9 @@
     if (!name) return showErr(err, 'Напишите, как к вам обращаться.', f.name);
     if (!okPhone) return showErr(err, 'Проверьте номер телефона: например, +7 900 123-45-67.', f.phone);
     if (!f.agree.checked) return showErr(err, 'Отметьте согласие на обработку данных — без него не сможем принять заказ.', f.agree);
-    lastOrder = { num: 'ЗЛ-' + String(Date.now()).slice(-4), name, phone, via: f.via.value, comment: f.comment.value.trim(), lines: items(), sum: total() };
-    // Здесь заказ уходит продавцу. В Тильде — форма с отправкой в Telegram/почту/CRM.
-    cart = {}; save(); refreshAll();
+    lastOrder = { num: 'ЗЛ-' + String(Date.now()).slice(-4), name, phone, comment: f.comment.value.trim(), lines: items(), sum: total() };
+    // Только предпросмотр: без сервера заявка не отправляется; корзину сохраняем.
+    // На Тильде используется ST100 с подключёнными Email и CRM.
     pane = 'done'; drawDrawer();
   }
   function showErr(el, msg, field) { el.textContent = msg; el.hidden = false; field.focus(); field.setAttribute('aria-invalid', 'true'); }
@@ -308,7 +306,7 @@
   [modal, drawer].forEach(closeOnBackdrop);
 
   /* ---------- Данные магазина в разметке ---------- */
-  const links = { map: S.mapUrl, wa: `https://wa.me/${S.whatsapp}`, tg: `https://t.me/${S.telegram}`, vk: `https://vk.com/${S.vk}` };
+  const links = { map: S.mapUrl, max: S.maxUrl, email: `mailto:${S.email}`, phone: `tel:+79621526105` };
   $$('[data-shop]').forEach(el => el.textContent = S[el.dataset.shop]);
   $$('[data-link]').forEach(el => el.href = links[el.dataset.link]);
   $$('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
@@ -332,7 +330,7 @@
       </nav>
       <footer class="lt-side__f">
         <p><small>Пункт выдачи</small>${S.city}, ${S.pickup}<br><span>${S.pickupNote}</span></p>
-        <div class="lt-side__msg"><a href="${links.wa}" target="_blank" rel="noopener">WhatsApp</a><a href="${links.tg}" target="_blank" rel="noopener">Telegram</a><a href="${links.vk}" target="_blank" rel="noopener">ВК</a></div>
+        <div class="lt-side__msg"><a href="${links.max}" target="_blank" rel="noopener">MAX</a><a href="${links.email}">Почта</a><a href="${links.phone}">Позвонить</a></div>
       </footer>
     </div></dialog>`);
   const side = $('#lt-side');

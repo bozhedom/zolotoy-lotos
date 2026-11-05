@@ -42,11 +42,10 @@ window.LT_SHOP = {
   pickup: 'пр. Мира, 229, рынок «Янтарь», место 2А',
   pickupNote: 'Буферная зона, напротив павильона с газетами',
   mapUrl: 'https://yandex.ru/maps/?text=%D0%AE%D0%B6%D0%BD%D0%BE-%D0%A1%D0%B0%D1%85%D0%B0%D0%BB%D0%B8%D0%BD%D1%81%D0%BA%2C%20%D0%BF%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%20%D0%9C%D0%B8%D1%80%D0%B0%2C%20229',
-  hours: 'Ежедневно 10:00–18:00',            // заменить на реальные часы
-  phone: '+7 (900) 000-00-00',               // заменить
-  whatsapp: '79000000000',                   // номер без +, для ссылки wa.me
-  telegram: 'zolotoy_lotos',                 // ник без @
-  vk: 'zolotoy_lotos',
+  hours: 'Уточняйте по телефону',
+  phone: '8 962 152-61-05',
+  email: 'zolotolotus@mail.ru',
+  maxUrl: 'https://max.ru/join/_v4UHKOs5Pu4tOYELHANkiRdN1gTghq7-0PXDAmfGJk',
   privacyUrl: '../privacy/',                 // политика конфиденциальности
   consentUrl: '../soglasie/'                 // согласие на обработку персональных данных
 };
